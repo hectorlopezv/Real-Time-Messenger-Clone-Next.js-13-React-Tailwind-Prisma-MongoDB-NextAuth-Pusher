@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import AuthForm from "./components/AuthForm";
 
 type Props = {};
 
@@ -21,6 +22,7 @@ export default function Home({}: Props) {
           Sign in into your account
         </h2>
       </div>
+      <AuthForm />
     </div>
   );
 }
