@@ -11,7 +11,7 @@ type Variant = "LOGIN" | "REGISTER";
 
 export default function AuthForm({}: Props) {
   const [variant, setVariant] = useState<Variant>("LOGIN");
-  const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
   const {
     register,
     handleSubmit,
@@ -52,7 +52,13 @@ export default function AuthForm({}: Props) {
       <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {variant === "REGISTER" ? (
-            <Input label="Name" register={register} id="name" errors={errors} />
+            <Input
+              label="Name"
+              register={register}
+              id="name"
+              errors={errors}
+              disabled={isLoading}
+            />
           ) : null}
           <Input
             label="Email"
@@ -60,6 +66,7 @@ export default function AuthForm({}: Props) {
             type="email"
             id="email"
             errors={errors}
+            disabled={isLoading}
           />
           <Input
             label="Password"
@@ -67,6 +74,7 @@ export default function AuthForm({}: Props) {
             register={register}
             id="password"
             errors={errors}
+            disabled={isLoading}
           />
           <div>
             <Button disabled={isLoading} fullWidth type="submit">
