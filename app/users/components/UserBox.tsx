@@ -4,6 +4,7 @@ import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
 
 type Props = {
   data: User;
@@ -16,11 +17,24 @@ export default function UserBox({ data }: Props) {
   const handleClick = useCallback(() => {
     setLoading(true);
     axios
-      .post("/api/conversations", {
-        userId: data.id,
-      })
+      .post(
+        "/api/conversations",
+        {
+          userId: data.id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((data) => {
+        console.log(data);
         router.push(`/conversations/${data.data.id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong, please try again later");
       })
       .finally(() => {
         setLoading(false);
