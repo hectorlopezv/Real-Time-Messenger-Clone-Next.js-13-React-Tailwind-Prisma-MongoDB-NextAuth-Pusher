@@ -2,19 +2,22 @@
 
 import Button from "@/app/components/inputs/Button";
 import Input from "@/app/components/inputs/Input";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import AuthSocialButton from "./AuthSocialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 type Props = {};
 type Variant = "LOGIN" | "REGISTER";
 
 export default function AuthForm({}: Props) {
   const [variant, setVariant] = useState<Variant>("REGISTER");
   const [isLoading, setisLoading] = useState(false);
+  const session = useSession();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -34,7 +37,11 @@ export default function AuthForm({}: Props) {
     if (variant === "REGISTER") {
       axios
         .post("/api/register", data)
-        .catch((err) => {
+        .then(() => {
+          toast.success("Account created");
+          signIn("credentials", data);
+        })
+        .catch(() => {
           toast.error("something went wrong");
         })
         .finally(() => {
@@ -72,6 +79,7 @@ export default function AuthForm({}: Props) {
         }
         if (callback?.ok && !callback?.error) {
           toast.success("Logged In");
+          router.push("/users");
         }
       })
       .finally(() => {
@@ -85,7 +93,11 @@ export default function AuthForm({}: Props) {
       setVariant("LOGIN");
     }
   }, [variant]);
-
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.push("/users");
+    }
+  }, [session, router]);
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
