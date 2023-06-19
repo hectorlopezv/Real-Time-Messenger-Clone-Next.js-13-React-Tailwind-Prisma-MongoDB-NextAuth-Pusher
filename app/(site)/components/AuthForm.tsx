@@ -6,12 +6,13 @@ import { useCallback, useState } from "react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import AuthSocialButton from "./AuthSocialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
+import axios from "axios";
 type Props = {};
 type Variant = "LOGIN" | "REGISTER";
 
 export default function AuthForm({}: Props) {
-  const [variant, setVariant] = useState<Variant>("LOGIN");
-  const [isLoading, setisLoading] = useState(true);
+  const [variant, setVariant] = useState<Variant>("REGISTER");
+  const [isLoading, setisLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -28,11 +29,12 @@ export default function AuthForm({}: Props) {
     setisLoading(true);
 
     //sign user
-    if (variant === "LOGIN") {
+    if (variant === "REGISTER") {
+      axios.post("/api/register", data)
     }
 
     //next auth signin
-    if (variant === "REGISTER") {
+    if (variant === "LOGIN") {
     }
   };
   const socialAction = (action: string) => {
