@@ -15,10 +15,11 @@ model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  email     String   @unique
+  email     String?   @unique
   emailVerified DateTime?
   hashedPassword String?
   name      String?
+  image    String?
   
   conversationIds String[] @db.ObjectId
   converstations Conversation[] @relation(references: [id], fields: [conversationIds])
