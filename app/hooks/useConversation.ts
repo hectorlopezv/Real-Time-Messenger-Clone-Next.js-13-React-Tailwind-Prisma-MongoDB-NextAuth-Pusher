@@ -3,16 +3,16 @@ import { useMemo } from "react";
 
 const useConverstation = () => {
   const params = useParams();
-  const converstationId = useMemo(() => {
-    if (!params?.converstationId) return "";
-    return params?.converstationId;
-  }, [params?.converstationId]);
+  const conversationId = useMemo(() => {
+    if (!params?.conversationId) return "";
+    return params?.conversationId;
+  }, [params?.conversationId]);
 
-  const isOpen = useMemo(() => !converstationId, [converstationId]);
+  const isOpen = useMemo(() => !conversationId, [conversationId]);
 
   return useMemo(
-    () => ({ converstationId, isOpen: false }),
-    [converstationId, isOpen]
+    () => ({ conversationId, isOpen: isOpen }),
+    [conversationId, isOpen]
   );
 };
 export default useConverstation;

@@ -11,8 +11,8 @@ export default async function SideBar({ children }: Props) {
   return (
     <div className="h-full">
       <DeskTopSideBar currentUser={currentUser!} />
-      <main className="lg:pl-20 h-full">{children}</main>
       <MobileFooter currentUser={currentUser!} />
+      <main className="lg:pl-20 h-full">{children}</main>
     </div>
   );
 }
