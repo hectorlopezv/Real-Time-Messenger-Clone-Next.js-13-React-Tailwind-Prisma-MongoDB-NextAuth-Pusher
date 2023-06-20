@@ -1,10 +1,11 @@
-
 import Avatar from "@/app/components/avatar/Avatar";
 import { Message, User } from "@prisma/client";
 import clsx from "clsx";
 import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
+import ImageModal from "./ImageModal";
 type Props = {
   isLast?: boolean;
   data: Message & {
@@ -15,6 +16,7 @@ type Props = {
 
 export default function MessageBox({ isLast, data }: Props) {
   const session = useSession();
+  const [imageModalOpen, setImageModalOpen] = useState(false);
   const isOwn = session?.data?.user?.email === data.sender?.email;
   const seenList = (data.seen || [])
     .filter((user) => user.email !== session?.data?.user?.email)
@@ -42,8 +44,14 @@ export default function MessageBox({ isLast, data }: Props) {
           </div>
         </div>
         <div className={message}>
+          <ImageModal
+            isOpen={imageModalOpen}
+            src={data?.image}
+            onClose={() => setImageModalOpen(false)}
+          />
           {data?.image ? (
             <Image
+              onClick={() => setImageModalOpen(true)}
               alt="image"
               height="288"
               width="288"
