@@ -1,4 +1,5 @@
-import Avatar from "@/app/components/Avatar";
+
+import Avatar from "@/app/components/avatar/Avatar";
 import { Message, User } from "@prisma/client";
 import clsx from "clsx";
 import { format } from "date-fns";

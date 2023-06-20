@@ -6,9 +6,9 @@ import { useCallback, useState } from "react";
 import { FiAlertTriangle } from "react-icons/fi";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import Modal from "../../../components/Modal";
+import Modal from "../../../components/modal/Modal";
 import { Dialog } from "@headlessui/react";
-import Button from "../../../components/Button";
+import Button from "../../../components/button/Button";
 
 type Props = {
   isOpen: boolean;

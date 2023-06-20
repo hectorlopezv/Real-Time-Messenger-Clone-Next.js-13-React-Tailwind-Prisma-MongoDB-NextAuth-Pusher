@@ -13,7 +13,7 @@ export default function Avatar({ user }: Props) {
       h-9 w-9 md:h-11 md:w-11"
       >
         <Image
-          src={user.image || "/images/placeholder.jpg"}
+          src={user?.image || "/images/placeholder.jpg"}
           fill
           alt="Avatar"
         />

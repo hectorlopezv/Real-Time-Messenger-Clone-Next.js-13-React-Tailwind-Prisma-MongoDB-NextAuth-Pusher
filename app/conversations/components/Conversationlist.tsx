@@ -12,6 +12,7 @@ import useConversation from "@/app/hooks/useConversation";
 
 import ConversationBox from "./ConversationBox";
 import { FullConversationType } from "@/types";
+import GroupChatModal from "./GroupChatModal";
 
 interface ConversationListProps {
   initialItems: FullConversationType[];
@@ -24,7 +25,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
   users,
 }) => {
   const [items, setItems] = useState(initialItems);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const router = useRouter();
   const session = useSession();
@@ -33,6 +34,11 @@ const ConversationList: React.FC<ConversationListProps> = ({
 
   return (
     <>
+      <GroupChatModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        users={users}
+      />
       <aside
         className={clsx(
           `

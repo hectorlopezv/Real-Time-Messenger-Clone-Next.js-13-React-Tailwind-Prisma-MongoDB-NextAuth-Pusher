@@ -1,8 +1,7 @@
 import { ReactNode } from "react";
 import SideBar from "../components/sidebar/SideBar";
 import Conversationlist from "./components/Conversationlist";
-import getConversations from "../actions/getConversations";
-import { FullConversationType } from "@/types";
+import getConversations from "../actions/getConversations"; 
 import getUsers from "../actions/getUsers";
 
 type Props = {

@@ -1,15 +1,14 @@
 "use client";
 
-import Avatar from "@/app/components/Avatar";
-import Modal from "@/app/components/Modal";
 import useOtherUser from "@/app/hooks/useOtherUser";
 import { Dialog, Transition } from "@headlessui/react";
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
-import { Domain } from "domain";
 import { Fragment, useMemo, useState } from "react";
 import { IoClose, IoTrash } from "react-icons/io5";
 import ConfirmationModal from "./ConfirmationModal";
+import Avatar from "@/app/components/avatar/Avatar";
+import AvatarGroup from "@/app/components/avatar/AvatarGroup";
 
 type Props = {
   isOpen: boolean;
@@ -87,7 +86,11 @@ export default function ProfileDrawer({ data, isOpen, onClose }: Props) {
                       <div className="relative mt-6 flex-1 px-4 sm:px-6">
                         <div className="flex flex-col items-center">
                           <div className="mb-2">
-                            <Avatar user={otherUser} />
+                            {data?.isGroup ? (
+                              <AvatarGroup users={data?.users} />
+                            ) : (
+                              <Avatar user={otherUser} />
+                            )}
                           </div>
                           <div>{title}</div>
                           <div className="text-sm text-gray-500">
@@ -108,6 +111,18 @@ export default function ProfileDrawer({ data, isOpen, onClose }: Props) {
                           </div>
                           <div className="w-full pb-5 pt-5 sm:px-0 sm:pt-0">
                             <dl className="space-y-8 px-4 sm:space-y-6 sm:px-6">
+                              {data.isGroup ? (
+                                <div>
+                                  <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                                    Emails
+                                  </dt>
+                                  <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+                                    {data.users
+                                      .map((user) => user.email)
+                                      .join(", ")}
+                                  </dd>
+                                </div>
+                              ) : null}
                               {!data.isGroup ? (
                                 <div>
                                   <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
