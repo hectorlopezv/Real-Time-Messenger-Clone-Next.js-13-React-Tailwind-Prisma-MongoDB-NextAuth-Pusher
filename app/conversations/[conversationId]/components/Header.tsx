@@ -8,6 +8,7 @@ import ProfileDrawer from "./ProfileDrawer";
 import Avatar from "@/app/components/avatar/Avatar";
 import { data } from "autoprefixer";
 import AvatarGroup from "@/app/components/avatar/AvatarGroup";
+import useActiveList from "@/app/hooks/useActiveList";
 type Props = {
   conversation: Conversation & {
     users: User[];
@@ -17,12 +18,14 @@ type Props = {
 export default function Header({ conversation }: Props) {
   const otherUser = useOtherUser(conversation);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { members } = useActiveList();
+  const isActive = members.indexOf(otherUser.id) !== -1;
   const statusText = useMemo(() => {
     if (conversation.isGroup) {
       return `${conversation.users.length} members`;
     }
-    return `Active`;
-  }, [conversation]);
+    return isActive ? `Active` : "Offline";
+  }, [conversation, isActive]);
 
   return (
     <>

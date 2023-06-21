@@ -9,6 +9,7 @@ import { IoClose, IoTrash } from "react-icons/io5";
 import ConfirmationModal from "./ConfirmationModal";
 import Avatar from "@/app/components/avatar/Avatar";
 import AvatarGroup from "@/app/components/avatar/AvatarGroup";
+import useActiveList from "@/app/hooks/useActiveList";
 
 type Props = {
   isOpen: boolean;
@@ -27,13 +28,14 @@ export default function ProfileDrawer({ data, isOpen, onClose }: Props) {
   const title = useMemo(() => {
     return data.name || otherUser.name;
   }, [data.name, otherUser.name]);
-
+  const { members } = useActiveList();
+  const isActive = members.indexOf(otherUser.email!) !== -1;
   const statusText = useMemo(() => {
     if (data.isGroup) {
       return `${data.users.length} members`;
     }
-    return `Active`;
-  }, [data]);
+    return isActive ? `Active` : "Offline";
+  }, [data, isActive]);
   return (
     <>
       <ConfirmationModal
