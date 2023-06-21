@@ -25,7 +25,7 @@ export default function Body({ initialMessages }: Props) {
     axios.post(`/api/conversations/${conversationId}/seen`);
   }, [conversationId]);
   useEffect(() => {
-    pusherClient.subscribe(conversationId);
+    pusherClient.subscribe(conversationId as string);
     bottomRef?.current?.scrollIntoView();
 
     const messageHandler = (message: FullMessageType) => {
@@ -58,7 +58,7 @@ export default function Body({ initialMessages }: Props) {
     pusherClient.bind("message:update", updateMessageHandler);
 
     return () => {
-      pusherClient.unsubscribe(conversationId);
+      pusherClient.unsubscribe(conversationId as string);
       pusherClient.unbind("messages:new", messageHandler);
       pusherClient.unbind("message:update", updateMessageHandler);
     };
