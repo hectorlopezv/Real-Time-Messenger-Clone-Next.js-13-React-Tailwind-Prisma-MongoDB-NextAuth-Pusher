@@ -8,11 +8,7 @@ type Props = { currentUser: User };
 
 export default function MobileFooter({}: Props) {
   const routes = useRoutes();
-  const { isOpen } = useConverstation();
 
-  if (isOpen) {
-    return null;
-  }
   return (
     <div
       className="fixed justify-between w-full bottom-0 z-40 flex items-center bg-white

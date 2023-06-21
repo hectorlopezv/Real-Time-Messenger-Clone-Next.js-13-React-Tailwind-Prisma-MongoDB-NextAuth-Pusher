@@ -7,8 +7,8 @@ const useConverstation = () => {
     if (!params?.conversationId) return "";
     return params?.conversationId;
   }, [params?.conversationId]);
-
-  const isOpen = useMemo(() => !conversationId, [conversationId]);
+  console.log("conversationId", conversationId);
+  const isOpen = useMemo(() => Boolean(conversationId), [conversationId]);
 
   return useMemo(
     () => ({ conversationId, isOpen: isOpen }),
