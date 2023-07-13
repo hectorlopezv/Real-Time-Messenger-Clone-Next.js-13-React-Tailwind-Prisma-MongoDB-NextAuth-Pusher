@@ -1,3 +1,4 @@
+Stack : react.js 18, next.js 13 full stack with route handler and next-auth, tailwind, pusher, mongodb, prisma orm, node, date-fns, node
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
